@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+.btn-check {
+	background-image: url(images/icons/check.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	float: left;
+	height: 16px;
+	width: 16px;
+	margin-top: 1px;
+	margin-left: 1px;
+}

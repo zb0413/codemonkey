@@ -1,0 +1,5 @@
+@charset "utf-8";
+/* portlet buttongroup边框对齐 */
+.x-btn-group-body-default .x-table-layout {
+	border-spacing: 0px;
+}

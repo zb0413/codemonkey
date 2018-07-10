@@ -1,0 +1,6 @@
+<sitemesh>
+	<mime-type>text/html</mime-type>
+	
+	<mapping path="/ext/*" decorator="/WEB-INF/decorator-ext.jsp" />
+	<mapping path="/bootstrap/*" decorator="/WEB-INF/decorator-bootstrap.jsp" />
+</sitemesh>

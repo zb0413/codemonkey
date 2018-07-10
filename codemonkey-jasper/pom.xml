@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.codemonkey</groupId>
+		<artifactId>codemonkey</artifactId>
+		<version>4.0.0</version>
+		<relativePath>../codemonkey/pom.xml</relativePath>
+	</parent>
+	
+	<packaging>jar</packaging>
+	<artifactId>codemonkey-jasper</artifactId>
+	<name>codemonkey-jasper</name>
+
+	<!--  -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<nonFilteredFileExtensions>
+						<nonFilteredFileExtension>jasper</nonFilteredFileExtension>
+					</nonFilteredFileExtensions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<properties>
+	    <jasperreports.version>6.0.0</jasperreports.version>
+		<mybatis.version>3.1.1</mybatis.version>
+	</properties>
+    
+	<dependencies>
+		<dependency>
+			<groupId>com.codemonkey</groupId>
+			<artifactId>codemonkey-core</artifactId>
+		</dependency>
+		
+		<!-- jasper report -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>${jasperreports.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+    		<groupId>com.itextpdf</groupId>
+    		<artifactId>itext-asian</artifactId>
+    		<version>5.2.0</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+iframe {
+	border: none;
+    width: 100%;
+}
+
+.main_content > div{
+	height : 100%
+}

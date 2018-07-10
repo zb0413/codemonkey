@@ -1,0 +1,39 @@
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codemonkey.dao.MybatisDao">
+	
+	<!-- appUser -->
+	<select id="selectAppUserList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from app_user t
+		<include refid="selectAppUserList_where"/>
+		<if test="sort != null">
+			order by 
+			<foreach item="item" index="index" collection="sort" separator=",">
+				${item} 
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="selectAppUserList_count" parameterType="java.util.HashMap" resultType="long">
+		select count(*) from app_user
+		<include refid="selectAppUserList_where"/>
+	</select>
+	
+	<sql id="selectAppUserList_where">
+		<where>
+			<if test="query_username != null">
+				and t.username like '%${query_username}%'
+			</if>
+		</where>
+	</sql>
+	
+	<insert id="insertTestUser" parameterType="java.util.HashMap">
+	    insert into app_user (id , username , password) values (#{id} , #{username} , #{password})
+	</insert>
+	
+	<!-- appUser end -->
+	
+</mapper>

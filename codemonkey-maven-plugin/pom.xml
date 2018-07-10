@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>codemonkey-maven-plugin</artifactId>
+    <packaging>jar</packaging>
+    <name>codemonkey-maven-plugin</name>
+
+	<parent>
+    	<groupId>com.codemonkey</groupId>
+    	<artifactId>codemonkey</artifactId>
+    	<version>4.0.0</version>
+    	<relativePath>../codemonkey/pom.xml</relativePath>
+    </parent>
+    
+    <build>
+    	<defaultGoal>install</defaultGoal>
+    </build>
+
+    <dependencies>
+    	<dependency>
+			<groupId>com.codemonkey</groupId>
+			<artifactId>codemonkey-core</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>android-json</artifactId>
+					<groupId>com.vaadin.external.google</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+    	<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+		</dependency>
+    </dependencies>
+</project>

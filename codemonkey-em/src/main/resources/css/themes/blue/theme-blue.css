@@ -1,0 +1,159 @@
+@charset "utf-8";
+/*背景*/
+.x-body {
+	background: #cde1f1;
+	background-image: url(images/common/login_bg.jpg);
+}
+/*开始背景*/
+.x-toolbar {
+	background-image: url(images/star/star_bg.jpg);
+	background-repeat: repeat-x;
+	float: left;
+	height: 41px;
+	width: 100%;
+}
+/*按钮底色*/
+.x-btn-default-toolbar-small {
+	border-color: #5eb1ca;
+	background-image: -webkit-linear-gradient(top, #a7e0f2, #a7e0f2 50%, #a7e0f2 51%, #a7e0f2);
+	background-color: #a7e0f2;
+}
+/*按钮字的颜色*/
+.x-btn-default-toolbar-small .x-btn-inner {
+	color: #346f82;
+}
+/*开始菜单top*/
+.x-panel-header-default {
+	color: #54a3bc
+}
+
+.x-panel-header-default {
+	background-color: #54a3bc
+}
+
+.x-panel-header-default {
+	border: 1px solid #54a3bc;
+}
+
+.x-panel-header-default-framed-top {
+	background-color: #94d1e4;
+}
+
+.x-panel-header-default-framed {
+	border: 1px solid #8acce2;
+}
+
+.x-menu {
+	background-color: #a1def3;
+	border-color: #8acce2;
+}
+
+.x-tree-icon-leaf {
+	background-image: url(images/start_menu/ico_02.png);
+}
+
+.x-tree-icon-parent {
+	background-image: url(images/start_menu/ico_01.png);
+}
+
+.x-grid-tree-node-expanded .x-tree-icon-parent {
+	background-image: url(images/start_menu/ico_06.png);
+}
+
+.x-panel-header-text-container-default-framed {
+	color: #2f7b93
+}
+/*弹出top*/
+.x-window-header-default-top {
+	background-color: #78c7df;
+}
+
+.x-window-default {
+	border-color: #8fd1e7;
+}
+
+.x-window-header-default {
+	border-color: #78c7df;
+}
+
+.x-column-header {
+	background-image: url(images/tip/table_bg.jpg);
+	background-repeat: repeat-x;
+	height: 36px;
+	color: #54a3bc;
+}
+
+.x-panel-header-default {
+	background-image: url(images/tip/table_bg.jpg);
+	background-repeat: repeat-x;
+	height: 36px;
+	color: #54a3bc;
+}
+
+.x-panel-default {
+	border-color: #93cada;
+}
+
+.x-panel-body-default {
+	border-color: #8fd1e7;
+}
+
+.x-panel-header-text-container-default {
+	color: #54a3bc;
+}
+
+.x-form-item-label {
+	color: #54a3bc;
+}
+
+.ux-desktop-shortcut-text {
+	color: #0f6680;
+	font-size: 12px;
+}
+
+.x-column-header {
+	border-right: 1px solid #98ccdb;
+}
+/*输入框*/
+.x-form-text {
+	border: 1px #a2cbd8 solid;
+}
+
+.x-form-trigger-wrap {
+	border: 1px solid #a2cbd8;
+}
+
+/*翻页*/
+.x-tbar-loading {
+	background-image: url(images/tip/refresh.png);
+}
+
+.x-tbar-page-last {
+	background-image: url(images/tip/next_end.png);
+}
+
+.x-tbar-page-next {
+	background-image: url(images/tip/next.png);
+}
+
+.x-tbar-page-first {
+	background-image: url(images/tip/pre_end.png);
+}
+
+.x-tbar-page-prev {
+	background-image: url(images/tip/pre.png);
+}
+
+.x-btn-plain-toolbar-small-disabled .x-btn-icon-el,.x-btn-plain-toolbar-medium-disabled .x-btn-icon-el,.x-btn-plain-toolbar-large-disabled .x-btn-icon-el
+	{
+	background-color: #82cde4;
+}
+
+/*tab*/
+.x-tab-default-top,.x-tab-default-left,.x-tab-default-right {
+	border-bottom: 0 solid #82cde4;
+}
+
+.x-tab-default {
+	border-color: #93cada;
+}

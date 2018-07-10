@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* CSS Document */
+html, body, div, span,h1,input{margin:0; padding:0; border:0;}
+.bg{ width:auto; height:auto;}
+
+.centerbox{ position:absolute; top:80px; left:50%; margin-left:-20%;}
+.title h1{ color:white; font-size:34px; margin-bottom:20px; margin-left:10%; letter-spacing:4px; text-shadow:#005d8d 0 2px 0;}
+.title img{ width:72%;}
+.srkan{ position:absolute; top:112px; left:36%; margin-left:-180px;}
+.srk1 input,.srk2 input{ width:216px; height:48px; border-radius:24px; border:none; opacity:0.75;margin-bottom:30px; font-size:30px; color:#909090;padding:5px}
+.srk1 input{ background-image:url(img/icon001.png); background-repeat:no-repeat; background-position:left;padding:0px 72px;}
+.srk1 input:hover{ opacity:1;}
+.srk2 input{ background-image:url(img/icon002.png); background-repeat:no-repeat; background-position:left;padding:0px 72px;}
+.srk2 input:hover{ opacity:1;}
+.an1{ width:360px; height:48px; border-radius:24px; background-color:rgba(255,255,255,0.3);}
+.an1 input{ width:348px; height:36px; border-radius:20px; margin-top:6px; margin-left:6px; border:1px solid #de6e34; background-color: #ff7124; font-size:18px; color:#FFF;text-shadow:#ab3d00 0 1px 0; letter-spacing:8px; }
+.an1 input:hover{ background-color: #ff4b13; }
+.an2{ width:120px; height:48px; border-radius:24px; background-color:rgba(255,255,255,0.3); margin-top:30px; margin-left:120px;}
+.an2 input{ width:108px; height:36px; border-radius:20px; margin-top:6px; margin-left:6px; border:1px solid #3ea9c9; background-color: #48cce4; font-size:18px; color:#FFF; text-shadow:#005d8d 0 1px 0; letter-spacing:8px; }
+.an2 input:hover{background-color: #35a6e3;}
+.centertext{ position:absolute; bottom:30px; font-size:16px; color:#323232; left:50%; margin-left:-80px; letter-spacing:6px;}
+

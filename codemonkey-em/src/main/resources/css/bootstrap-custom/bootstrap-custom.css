@@ -1,0 +1,12 @@
+footer {
+	position:absolute; 
+	bottom:5px;
+	width: 100%;
+	background-color: #f5f5f5;
+	padding-right: 15px;
+  	padding-left: 15px;
+}
+
+body{
+	background-color: #ecf0f5;
+}

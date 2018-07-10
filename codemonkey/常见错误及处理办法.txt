@@ -1,0 +1,35 @@
+
+****************异常信息或现象********************************
+
+java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.Net.bind(Net.java:428)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:473)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:653)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:449)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1007)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:241)
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.addPreviouslyRemovedConnectors(TomcatEmbeddedServletContainer.java:181)
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.start(TomcatEmbeddedServletContainer.java:144)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.startEmbeddedServletContainer(EmbeddedWebApplicationContext.java:272)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.finishRefresh(EmbeddedWebApplicationContext.java:132)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:485)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:109)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:691)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:320)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:952)
+	at com.codemonkey.HospitalApplication.main(HospitalApplication.java:38)
+	
+****************  问题原因   *********************************	
+	
+	启动服务的端口被占用
+	
+****************  解决办法    *********************************
+
+	检查eclipse 中是否重复启动，检查任务管理器中是否有未被停止的java或javaw进程，如果有结束任务
+
+==========================================================

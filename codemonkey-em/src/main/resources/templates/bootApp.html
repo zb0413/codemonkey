@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+  layout:decorator="layout">
+
+	<head>
+	</head>
+	<body>
+		<div layout:fragment="script">
+			<script type="text/javascript">
+				Ext.application({
+					name: 'boot-app',
+				    appFolder : '../javascript/example/boot-app',
+				    autoCreateViewport: true
+				});
+			</script>
+		</div>
+		<div layout:fragment="title">
+			<h3>boot-app</h3>
+		</div>
+	</body>
+</html>  

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+	<head>
+		<title>Layout</title>
+		
+		<script type="text/javascript" th:src="@{/webjars/qrcodejs/07f829d/qrcode.js}"></script>
+		
+		<!--  ext -->
+		
+		<script type="text/javascript" th:src="@{/webjars/extjs/4.2.1.883/ext-all-debug.js}"></script>
+	    <script type="text/javascript" th:src="@{/webjars/extjs/4.2.1.883/locale/ext-lang-zh_CN.js}"></script>
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/extjs/4.2.1.883/resources/ext-theme-neptune/ext-theme-neptune-all.css}" />
+		
+		<link rel="stylesheet" type="text/css" th:href="@{/css/portal.css}"/>
+		
+		<!--  raphael -->
+		<script type="text/javascript" th:src="@{/webjars/raphaeljs/2.1.2/raphael.js}"></script>
+		
+		<script type="text/javascript" th:inline="javascript">
+			/*<![CDATA[*/
+			    var PAGE_DATA = Ext.decode([[${pageData}]]);
+			/*]]>*/
+		</script>
+		<script type="text/javascript" th:src="@{/javascript/codemonkey-em/codemonkey-em-includes.js}"></script>
+		<script type="text/javascript" th:src="@{/javascript/codemonkey-em/codemonkey-em.js}"></script>
+		
+	</head>
+	<body>
+		<div layout:fragment="script">
+		
+		</div>
+		<div id="example"></div>
+		<div class="container">
+			<div layout:fragment="header">
+				
+			</div>
+			<div layout:fragment="content">
+				
+			</div>
+		</div>
+	</body>
+</html>

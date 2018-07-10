@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+  layout:decorator="layout">
+
+	<head>
+	</head>
+	<body>
+		<table>
+			<tr th:fragment="tableHeader">
+			    <th>id</th>
+				<th>customerName</th>
+				<th>productName</th>
+				<th>productVersion</th>
+				<th>licenseExpiry</th>
+			</tr>
+			<tr th:fragment="tableBody" th:each="p :${list}">
+			    <td th:text="${p.id}"></td>
+				<td th:text="${p.customerName}"></td>
+				<td th:text="${p.productName}"></td>
+				<td th:text="${p.productVersion}"></td>
+				<td th:text="${p.licenseExpiry}"></td>
+				<td> <a th:href="@{/licenseDetail/update(id=${p.id})}" class="ui-shadow ui-btn ui-corner-all">修改</a> </td>
+				<td> <a th:href="@{/licenseDetail/dload(id=${p.id})}" class="ui-shadow ui-btn ui-corner-all">下载</a> </td>
+			</tr>
+		</table>
+		<div layout:fragment="content">
+		
+			<div th:replace="fragments :: table(tableHeader , tableBody)"></div>
+			<div> <a href="/licenseDetail/add">新增</a> </div>
+			<div> <a href="/query">查询</a> </div>
+			<div >
+			    <ul th:fragment="pagination" class="pagination">
+			    
+				<li><a th:href ="@{/query(page=0)}">&laquo;</a></li>
+				
+				<li th:each = "i : ${#numbers.sequence(0, list.totalPages-1)}">
+				     <a  th:href="@{/query(page= ${i})}" th:text="${i+1}"></a>
+				</li>
+				<li><a th:href ="@{/query(page= ${list.totalPages-1})}">&raquo;</a></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

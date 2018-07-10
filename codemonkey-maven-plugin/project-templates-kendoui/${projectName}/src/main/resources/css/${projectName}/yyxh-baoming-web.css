@@ -1,0 +1,6 @@
+.conCtrl{    
+    z-index: 2;
+    display : none;
+	position: static;
+    float: right;
+}

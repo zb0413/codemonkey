@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.codemonkey</groupId>
+		<artifactId>codemonkey</artifactId>
+		<version>4.0.0</version>
+	</parent>
+	<artifactId>codemonkey-drools</artifactId>
+
+	<!--  -->
+	<build>
+		
+    </build>
+    
+    <properties>
+	    <xstream.version>1.4.7</xstream.version>
+	    <drools.version>7.0.0.CR3</drools.version>
+	</properties>
+    
+	<dependencies>
+		<dependency>
+			<groupId>com.codemonkey</groupId>
+			<artifactId>codemonkey-core</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.codemonkey</groupId>
+			<artifactId>codemonkey-hibernate4</artifactId>
+		</dependency>
+		
+	    <!-- drools -->
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-core</artifactId>
+			<version>${drools.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-compiler</artifactId>
+			<version>${drools.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.kie</groupId>
+		    <artifactId>kie-api</artifactId>
+		    <version>${drools.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.kie</groupId>
+			<artifactId>kie-spring</artifactId>
+		    <version>${drools.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>${xstream.version}</version>
+		</dependency>
+		
+	</dependencies>
+	
+</project>

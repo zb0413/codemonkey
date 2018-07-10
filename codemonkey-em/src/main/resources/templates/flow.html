@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+  layout:decorator="layout">
+
+	<head>
+		 <script type="text/javascript" th:src="@{/javascript/flow.js}"></script>
+	</head>
+	<body>
+		<div layout:fragment="script">
+			<script type="text/javascript">
+				Ext.onReady(function(){
+					loadFlow();
+				});
+			</script>
+		</div>
+		<div layout:fragment="title">
+			<div id="viewport1">
+			</div>
+		</div>
+	</body>
+</html>  

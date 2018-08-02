@@ -2,13 +2,15 @@ package com.codemonkey.domain;
 
 import javax.persistence.Entity;
 
-import org.json.JSONObject;
+import lombok.Getter;
+import lombok.Setter;
 
 import com.codemonkey.annotation.Label;
-import com.codemonkey.utils.OgnlUtils;
 
 @Entity
 @Label("基础码表信息")
+@Getter
+@Setter
 public class BaseDictionary extends AbsEE{
 
 	private static final long serialVersionUID = 1L;
@@ -21,38 +23,5 @@ public class BaseDictionary extends AbsEE{
 	
 	@Label("顺序")
 	private Integer sortIndex;
-	
-	@Override
-	public JSONObject listJson() {
-		JSONObject jo = super.listJson();
-		jo.put("fieldType", OgnlUtils.stringValue("fieldType", this));
-		jo.put("codeValue", OgnlUtils.stringValue("codeValue", this));
-		jo.put("sortIndex", OgnlUtils.stringValue("sortIndex", this));
-		return jo;
-	}
-
-	public String getFieldType() {
-		return fieldType;
-	}
-
-	public void setFieldType(String fieldType) {
-		this.fieldType = fieldType;
-	}
-
-	public String getCodeValue() {
-		return codeValue;
-	}
-
-	public void setCodeValue(String codeValue) {
-		this.codeValue = codeValue;
-	}
-
-	public Integer getSortIndex() {
-		return sortIndex;
-	}
-
-	public void setSortIndex(Integer sortIndex) {
-		this.sortIndex = sortIndex;
-	}
 	
 }

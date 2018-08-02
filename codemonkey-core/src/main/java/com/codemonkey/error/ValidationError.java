@@ -4,11 +4,11 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.codemonkey.utils.ExtConstant;
+import com.codemonkey.utils.SysUtils;
 
 
 public class ValidationError extends SysError{
@@ -57,7 +57,7 @@ public class ValidationError extends SysError{
 //		buffer.append("<br>");
 		StringBuffer buffer = new StringBuffer();
 		
-		if(StringUtils.isNotBlank(super.getDetailMessage())){
+		if(SysUtils.isNotEmpty(super.getDetailMessage())){
 			buffer.append(super.getDetailMessage());
 			return buffer.toString();
 		}

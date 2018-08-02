@@ -1,5 +1,0 @@
-<sitemesh>
-	<mime-type>text/html</mime-type>
-	
-	<mapping path="/*" decorator="/WEB-INF/decorator.jsp"/>
-</sitemesh>

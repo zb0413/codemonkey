@@ -4,13 +4,15 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
-import org.json.JSONObject;
+import lombok.Getter;
+import lombok.Setter;
 
 import com.codemonkey.annotation.Label;
-import com.codemonkey.utils.OgnlUtils;
 
 @Entity
 @Label("系统基础配置")
+@Getter
+@Setter
 public class GlobalConfig extends AbsEE{
 
 	/**
@@ -58,28 +60,4 @@ public class GlobalConfig extends AbsEE{
 	@Enumerated(EnumType.STRING)
 	private ValueType valueType;
 	
-	@Override
-	public JSONObject listJson() {
-		JSONObject jo = super.listJson();
-		jo.put("code", OgnlUtils.stringValue("code", this));
-		jo.put("value", OgnlUtils.stringValue("value", this));
-		jo.put("valueType", OgnlUtils.stringValue("valueType", this));
-		return jo;
-	}
-	
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-
-	public ValueType getValueType() {
-		return valueType;
-	}
-
-	public void setValueType(ValueType valueType) {
-		this.valueType = valueType;
-	}
 }

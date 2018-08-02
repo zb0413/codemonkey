@@ -1,8 +1,8 @@
 package com.codemonkey.domain;
 
 
-public interface TreeEntity extends IEntity{
+public interface TreeEntity<T> extends IEntity<T>{
 
-	TreeEntity getParent();
+	TreeEntity<T> getParent();
 	
 }

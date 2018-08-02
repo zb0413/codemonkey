@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
@@ -23,7 +22,7 @@ public class JsonArrayConverter<T> {
 	public List<T> convert(JSONObject params, String arrayKey, String idKey,
 			Class<?> clazz, FormattingConversionServiceFactoryBean ccService) {
 		if (params.has(arrayKey)
-				&& StringUtils.isNotBlank(params.getString(arrayKey))) {
+				&& SysUtils.isNotEmpty(params.getString(arrayKey))) {
 			JSONArray p = params.optJSONArray(arrayKey);
 
 			if (p == null) {

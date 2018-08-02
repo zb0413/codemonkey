@@ -3,11 +3,12 @@ package com.codemonkey.domain;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class AbsEE extends AbsEntity implements IEntity {
+public class AbsEE extends AbsEntity<Long> implements IEntity<Long> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	
 }

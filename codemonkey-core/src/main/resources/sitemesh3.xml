@@ -1,0 +1,4 @@
+<sitemesh>
+	<mime-type>text/html</mime-type>
+	<mapping path="/*" decorator="/public/decorator.mustache"/>
+</sitemesh>

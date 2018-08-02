@@ -1,1 +1,0 @@
-../jdk1.7.0_60/bin/java  -jar codemonkey-webface-3.0.0.jar --server.port=8080 --server.sessionTimeout=60000 -Xms1024m -Xmx2048m -XX:MaxPermSize=512m &

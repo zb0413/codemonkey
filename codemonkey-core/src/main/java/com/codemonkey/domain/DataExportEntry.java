@@ -2,11 +2,12 @@ package com.codemonkey.domain;
 
 import javax.persistence.Entity;
 
-import org.json.JSONObject;
-
-import com.codemonkey.utils.OgnlUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class DataExportEntry extends AbsEE{
 
 	/**
@@ -40,38 +41,6 @@ public class DataExportEntry extends AbsEE{
 	
 	public String getExportFileName(String subfix){
 		return orderNo + PREFIX + tableName + "." + subfix;
-	}
-	
-	public JSONObject listJson() {
-		JSONObject jo = super.listJson();
-		jo.put("tableName", OgnlUtils.stringValue("tableName", this));
-		jo.put("sql", OgnlUtils.stringValue("sql", this));
-		jo.put("orderNo", OgnlUtils.stringValue("orderNo", this));
-		return jo;
-	}
-
-	public String getTableName() {
-		return tableName;
-	}
-
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
-	}
-
-	public Integer getOrderNo() {
-		return orderNo;
-	}
-
-	public void setOrderNo(Integer orderNo) {
-		this.orderNo = orderNo;
-	}
-
-	public String getSqlQquery() {
-		return sqlQquery;
-	}
-
-	public void setSqlQquery(String sqlQquery) {
-		this.sqlQquery = sqlQquery;
 	}
 	
 }

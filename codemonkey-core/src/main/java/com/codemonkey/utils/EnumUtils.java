@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 /**
@@ -17,11 +16,11 @@ public final class EnumUtils {
 	public static JSONObject getEnmuDataByClazz(String className , String pacakageName , String method) {
 		JSONObject ja = new JSONObject();
 		
-		if(StringUtils.isNotBlank(className)){
+		if(SysUtils.isNotEmpty(className)){
 			
 			String pName = null;
 			
-			if(StringUtils.isBlank(pacakageName)){
+			if(SysUtils.isNotEmpty(pacakageName)){
 				pName = "com.codemonkey.domain.";
 			}else{
 				pName = pacakageName + '.';

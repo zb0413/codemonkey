@@ -1,15 +1,11 @@
 package com.codemonkey.utils;
 
-import org.apache.commons.lang.StringUtils;
 
-/**
- * 类描述：正则验证类型
- */
 public enum ValidateType {
 	NOT_BLANK {
 		@Override
 		public boolean validate(String value) {
-			return StringUtils.isNotBlank(value);
+			return SysUtils.isNotEmpty(value);
 		}
 
 		@Override
@@ -20,7 +16,7 @@ public enum ValidateType {
 	EMAIL {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.EMAIL_REG, value);
 			}
 			return true;
@@ -34,7 +30,7 @@ public enum ValidateType {
 	ID_CARD {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.ID_CARD_REG, value);
 			}
 			return true;
@@ -48,7 +44,7 @@ public enum ValidateType {
 	MOBILE_PHONE {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.MOBILE_PHONE_REG, value);
 			}
 			return true;
@@ -62,7 +58,7 @@ public enum ValidateType {
 	PHONE {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.NUM_SPE_REG, value);
 			}
 			return true;
@@ -76,7 +72,7 @@ public enum ValidateType {
 	FIX_PHONE {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.FIX_PHONE_REG, value);
 			}
 			return true;
@@ -101,7 +97,7 @@ public enum ValidateType {
 	GROUP_PHONE {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.GROUP_PHONE_REG, value);
 			}
 			return true;
@@ -115,7 +111,7 @@ public enum ValidateType {
 	EXTENSION_PHONE {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.EXTENSION_PHONE_REG, value);
 			}
 			return true;
@@ -129,7 +125,7 @@ public enum ValidateType {
 	NUM_LETTER_UNDERLINE {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.NUM_LETTER_UNDERLINE_REG,
 						value);
 			}
@@ -144,7 +140,7 @@ public enum ValidateType {
 	NUM_LETTER {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.NUM_LETTER_REG, value);
 			}
 			return true;
@@ -158,7 +154,7 @@ public enum ValidateType {
 	CAPITAL_LETTER {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.CAPITAL_LETTER_REG, value);
 			}
 			return true;
@@ -172,7 +168,7 @@ public enum ValidateType {
 	NON_REAL_NUM {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.NON_REAL_NUM_REG, value);
 			}
 			return true;
@@ -186,7 +182,7 @@ public enum ValidateType {
 	NON_INT {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.INT_REG, value);
 			}
 			return true;
@@ -200,7 +196,7 @@ public enum ValidateType {
 	POS_INT {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.POS_INT_REG, value);
 			}
 			return true;
@@ -214,7 +210,7 @@ public enum ValidateType {
 	IP {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.IP_REG, value);
 			}
 			return true;
@@ -228,7 +224,7 @@ public enum ValidateType {
 	CHINESE {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.CHINESE_REG, value);
 			}
 			return true;
@@ -242,7 +238,7 @@ public enum ValidateType {
 	POSTCODE {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				return RegUtils.matches(RegUtils.POSTCODE_REG, value);
 			}
 			return true;
@@ -256,7 +252,7 @@ public enum ValidateType {
 	REGULARSTR {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				if (value.length() > 255) {
 					return false;
 				} else {
@@ -274,7 +270,7 @@ public enum ValidateType {
 	REGULARNUM {
 		@Override
 		public boolean validate(String value) {
-			if (StringUtils.isNotBlank(value)) {
+			if (SysUtils.isNotEmpty(value)) {
 				boolean bln = POS_INT.validate(value);
 				if(!bln){
 					return false;

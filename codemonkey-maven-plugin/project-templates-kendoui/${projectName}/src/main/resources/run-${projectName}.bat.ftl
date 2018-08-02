@@ -1,1 +1,0 @@
-java -jar ${projectName}-3.0.0.jar --server.port=8080 --server.sessionTimeout=60000 -Xms1024m -Xmx2048m -XX:MaxPermSize=512m

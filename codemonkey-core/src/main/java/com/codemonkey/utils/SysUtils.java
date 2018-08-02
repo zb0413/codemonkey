@@ -40,8 +40,6 @@ import javax.sql.DataSource;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
@@ -56,18 +54,18 @@ import org.dbunit.operation.DatabaseOperation;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AdvisedSupport;
 import org.springframework.aop.framework.AopProxy;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.util.StringUtils;
 import org.springframework.web.util.HtmlUtils;
 
-import com.codemonkey.domain.AppRole;
-import com.codemonkey.domain.AppUser;
 import com.codemonkey.domain.IEntity;
 import com.codemonkey.error.SysError;
-import com.codemonkey.service.AppRoleService;
 
 /**
  * 类描述：系统工具类
@@ -95,15 +93,15 @@ public class SysUtils {
 	private static Logger logger = getLog(SysUtils.class);
 
 	public static Logger getLog(Class<?> clazz) {
-		return Logger.getLogger(clazz);
+		return LoggerFactory.getLogger(clazz);
 	}
 
 	public static boolean isEmpty(String s) {
-		return StringUtils.isBlank(s);
+		return org.apache.commons.lang3.StringUtils.isBlank(s);
 	}
 
 	public static boolean isNotEmpty(String s) {
-		return StringUtils.isNotBlank(s);
+		return !isEmpty(s);
 	}
 
 	public static boolean isEmpty(Collection<?> coll) {
@@ -127,7 +125,7 @@ public class SysUtils {
 		if (SysUtils.isNotEmpty(list)) {
 			for (Object obj : list) {
 				if (obj instanceof IEntity) {
-					ja.put(((IEntity) obj).listJson());
+//					ja.put(((IEntity<?>) obj).listJson());
 				} else if (obj instanceof Map) {
 					@SuppressWarnings("unchecked")
 					Map<String, Object> result = (Map<String, Object>) obj;
@@ -235,7 +233,7 @@ public class SysUtils {
 	 */
 	public static String getCurrentLocale() {
 		String locale = (String) SysUtils.getAttribute(ExtConstant.LOCALE);
-		if (StringUtils.isBlank(locale)) {
+		if (SysUtils.isEmpty(locale)) {
 			return ExtConstant.DEFAULT_LOCALE;
 		}
 		return locale;
@@ -565,7 +563,7 @@ public class SysUtils {
 	 */
 	public static Date toDate(String dateString, String fmt) {
 		try {
-			if (StringUtils.isBlank(dateString)) {
+			if (SysUtils.isEmpty(dateString)) {
 				return null;
 			}
 			SimpleDateFormat sdf = new SimpleDateFormat(fmt);
@@ -602,26 +600,17 @@ public class SysUtils {
 		return msg;
 	}
 
-	public static String getCurrentUsername() {
-		AppUser user = getCurrentUser();
 
-		return user != null ? user.getUsername() : null;
-	}
-
-	public static AppUser getCurrentUser() {
-		return (AppUser) SysUtils.getAttribute(CURRENCT_USER);
-	}
-
-	public static boolean isAdmin() {
-		AppUser user = getCurrentUser();
-		Set<AppRole> role = user.getRoles();
-		for (AppRole appRole : role) {
-			if (AppRoleService.ROLE_ADMIN.equals(appRole.getCode())) {
-				return true;
-			}
-		}
-		return false;
-	}
+//	public static boolean isAdmin() {
+//		AppUser user = getCurrentUser();
+//		Set<AppRole> role = user.getRoles();
+//		for (AppRole appRole : role) {
+//			if (AppRoleService.ROLE_ADMIN.equals(appRole.getCode())) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 
 	public static void copyToJSON(JSONObject target, Map<String, Object> source) {
 		if (target == null || source == null) {
@@ -1287,11 +1276,11 @@ public class SysUtils {
 		return false;
 	}
 	
-	public static boolean isNotIncluded(Collection<?> list, IEntity d) {
+	public static boolean isNotIncluded(Collection<?> list, IEntity<?> d) {
 		return !isIncluded(list , d);
 	}
 	
-	public static boolean isIncluded(Collection<?> list, IEntity d) {
+	public static boolean isIncluded(Collection<?> list, IEntity<?> d) {
 		
 		if(d == null){
 			return true;
@@ -1302,7 +1291,7 @@ public class SysUtils {
 		}
 		
 		for(Object data : list){
-			IEntity entity = (IEntity) data;
+			IEntity<?> entity = (IEntity<?>) data;
 			if(entity.getId().equals(d.getId())){
 				return true;
 			}
@@ -1328,69 +1317,12 @@ public class SysUtils {
 		return divider;
 	}
 
-	// List<Map<String , Object>> readExcel(File file){
-	// if(file == null) {
-	// return null;
-	// }
-	// String fileName = file.getName();
-	// String subfix = fileName.substring(fileName.lastIndexOf(".") + 1,
-	// fileName.length());
-	// if("xls".equals(subfix) || "xlsx".equals(subfix)) {
-	// return readXls(file);
-	// }
-	// return null;
-	// }
-	//
-	// private List<Map<String, Object>> readXls(File file) {
-	// try{
-	// InputStream is = new FileInputStream(file);
-	// HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
-	// List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-	// // Read the Sheet
-	// for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets();
-	// numSheet++) {
-	// HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(numSheet);
-	// if (hssfSheet == null) {
-	// continue;
-	// }
-	//
-	// List<String> keys = null;
-	// // Read the Row
-	// for (int rowNum = 1; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
-	// HSSFRow hssfRow = hssfSheet.getRow(rowNum);
-	//
-	// //read key from first row
-	// if(rowNum == 1){
-	// keys = buildKeys(hssfRow);
-	// }
-	//
-	// if(SysUtils.isNotEmpty(keys) && hssfRow != null){
-	// Map<String, Object> map = new HashMap<String, Object>();
-	// for(short i = 0 ; i < keys.size() ; i++){
-	// HSSFCell cell = hssfRow.getCell(i);
-	// map.put(keys.get(i), cell.getStringCellValue());
-	// }
-	// list.add(map);
-	// }
-	// }
-	// }
-	// return list;
-	// }catch(Exception e){
-	// e.printStackTrace();
-	// }
-	// return null;
-	// }
-	//
-	// private List<String> buildKeys(HSSFRow hssfRow) {
-	// List<String> keys = new ArrayList<String>();
-	// if(hssfRow != null){
-	// @SuppressWarnings("unchecked")
-	// Iterator<HSSFCell> it = hssfRow.cellIterator();
-	// while(it.hasNext()){
-	// keys.add(it.next().getStringCellValue());
-	// }
-	// }
-	// return keys;
-	// }
+	public static String capitalize(String name) {
+		return StringUtils.capitalize(name);
+	}
+
+	public static String uncapitalize(String simpleName) {
+		return StringUtils.uncapitalize(simpleName);
+	}
 
 }

@@ -1,12 +1,13 @@
 package com.codemonkey.init;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -40,6 +41,11 @@ public class StartupServiceImpl implements StartupService{
 			for(InitDataBean b : list){
 				logger.info("init data by : " + SysUtils.getTarget(b).getClass());
 				b.doInit();
+			}
+			
+			File f = SysUtils.createFile(SysUtils.DATA_INITED);
+			if(f != null){
+				logger.info("create dataInitFile : " + f.getAbsolutePath());
 			}
 			
 		}

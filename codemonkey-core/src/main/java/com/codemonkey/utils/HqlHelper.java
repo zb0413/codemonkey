@@ -21,7 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -158,15 +157,15 @@ public final class HqlHelper {
 		Set<String> partsSet = new HashSet<String>();
 		
 		for(int i = 0 ; i < parts.length ; i++){
-			if(StringUtils.isNotBlank(parts[i])){
+			if(SysUtils.isNotEmpty(parts[i])){
 				
 				String[] subParts1 = parts[i].split(AND);
 				
 				for(int k = 0 ; k < subParts1.length ; k++){
-					if(StringUtils.isNotBlank(subParts1[k])){
+					if(SysUtils.isNotEmpty(subParts1[k])){
 						String[] subParts2 = subParts1[k].split(OR_REG);
 						for(int j = 0 ; j < subParts2.length ; j++){
-							if(StringUtils.isNotBlank(subParts2[j])){
+							if(SysUtils.isNotEmpty(subParts2[j])){
 								partsSet.add(subParts2[j]);
 							}
 						}
@@ -265,7 +264,7 @@ public final class HqlHelper {
 
 
 	private static String extractPartFromQueryString(String queryString) {
-		return StringUtils.uncapitalize(queryString.split("_")[0]);
+		return SysUtils.uncapitalize(queryString.split("_")[0]);
 	}
 	
 	private static String orderByToJPQL(String query , Map<String , String> joinsProps) {
@@ -276,7 +275,7 @@ public final class HqlHelper {
 		if(query.indexOf(ORDER_BY) >= 0){
 			orderBy = query.substring(query.indexOf(ORDER_BY) + ORDER_BY.length());
 			
-			if(StringUtils.isNotBlank(orderBy)){
+			if(SysUtils.isNotEmpty(orderBy)){
 				
 				jpql.append(" Order By ");
 				
@@ -378,7 +377,7 @@ public final class HqlHelper {
 	
 	private static void extractValue(String key , String prop , JSONObject queryInfo , Class<?> type , List<Object> params){
 		String value = queryInfo.getString(key);
-		if(StringUtils.isNotBlank(value) && !"null".equalsIgnoreCase(value)){
+		if(SysUtils.isNotEmpty(value) && !"null".equalsIgnoreCase(value)){
 
 			Field field = null;
 			
@@ -519,7 +518,7 @@ public final class HqlHelper {
 				buffer.append(AND);
 			}else{
 				String value = queryInfo.getString(key);
-				if(StringUtils.isNotBlank(value) && !"null".equalsIgnoreCase(value)){
+				if(SysUtils.isNotEmpty(value) && !"null".equalsIgnoreCase(value)){
 					buffer.append(key);
 					buffer.append(AND);
 				}
@@ -571,7 +570,7 @@ public final class HqlHelper {
 		if(query.indexOf(ORDER_BY) >= 0){
 			findBy = query.substring( 0 , query.indexOf(ORDER_BY));
 		}
-		if(StringUtils.isNotBlank(findBy)){
+		if(SysUtils.isNotEmpty(findBy)){
 			StringBuffer jpql = new StringBuffer();
 			 
 	        String[] parts = findBy.split(AND);
@@ -733,7 +732,7 @@ public final class HqlHelper {
 
 	private static String extractProp(String part, String end , Map<String , String> joinsProps) {
 		String prop = part.substring(0, part.length() - end.length());
-		prop = StringUtils.uncapitalize(prop);
+		prop = SysUtils.uncapitalize(prop);
 		
 		if(prop.indexOf('.') > 0){
 			

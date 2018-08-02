@@ -29,7 +29,7 @@ public final class OgnlConvertUtils {
 				return value.toString() ;
 			}
 			if(value instanceof IEntity){
-				return entityValue((IEntity)value);
+				return entityValue((IEntity<?>)value);
 			}
 			if(value instanceof IEnum){
 				return enumValue((IEnum)value);
@@ -75,7 +75,7 @@ public final class OgnlConvertUtils {
 		return em.getName();
 	}
 
-	private static String entityValue(IEntity entity) {
+	private static String entityValue(IEntity<?> entity) {
 		return entity.getId().toString();
 	}
 

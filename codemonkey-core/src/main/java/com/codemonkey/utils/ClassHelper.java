@@ -15,7 +15,6 @@ import java.util.Set;
 
 import javax.persistence.Version;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.proxy.HibernateProxy;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
@@ -50,14 +49,14 @@ public final class ClassHelper {
 	  * @return: 属性值
 	  * @author: wy
 	  */
-	public static Object getFieldValue(AbsEntity entity, String fieldName) {
+	public static Object getFieldValue(AbsEntity<?> entity, String fieldName) {
 
 		Field field = null;
 		try {
 			field = getFieldFromClazz(entity.getClass(), fieldName);
 			return callGetter(entity, field);
 		} catch (Exception e) {
-			logger.error(" call get" + StringUtils.capitalize(field.getName())
+			logger.error(" call get" + SysUtils.capitalize(field.getName())
 					+ " FAILED!!!!! ");
 		}
 		return null;
@@ -88,7 +87,7 @@ public final class ClassHelper {
 		Method setter = null;
 
 		try {
-			String setterName = "set" + StringUtils.capitalize(fieldName);
+			String setterName = "set" + SysUtils.capitalize(fieldName);
 			Field field = getFieldFromClazz(obj.getClass(), fieldName);
 			if (field != null) {
 				setter = ClassUtils.getMethodIfAvailable(obj.getClass(),
@@ -137,12 +136,12 @@ public final class ClassHelper {
 	public static Object callGetter(Object obj, String fieldName) {
 		Method getter = null;
 		Object value = null;
-		if (StringUtils.isBlank(fieldName)) {
+		if (SysUtils.isEmpty(fieldName)) {
 			return null;
 		}
 		try {
 			getter = ClassUtils.getMethodIfAvailable(obj.getClass(), "get"
-					+ StringUtils.capitalize(fieldName));
+					+ SysUtils.capitalize(fieldName));
 
 			if (getter != null) {
 				value = getter.invoke(obj);
@@ -230,7 +229,7 @@ public final class ClassHelper {
 	private static Object getValueFromJson(Field field, String name,
 			JSONObject params, FormattingConversionServiceFactoryBean ccService) {
 
-		if (StringUtils.isBlank(params.getString(name))
+		if (SysUtils.isEmpty(params.getString(name))
 				|| params.getString(name).equals("")
 				|| params.getString(name).equals("undefined")) {
 			return null;
@@ -304,6 +303,23 @@ public final class ClassHelper {
 			Method m = ClassUtils.getMethodIfAvailable(clazz, method);
 			if (m != null ) {
 				return m.invoke(clazz);
+			}
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static Object callMethod(Object inst , String method) {
+		
+		try {
+			Method m = ClassUtils.getMethodIfAvailable(inst.getClass() , method);
+			if (m != null ) {
+				return m.invoke(inst);
 			}
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();

@@ -1,7 +1,0 @@
-<sitemesh>
-	<mime-type>text/html</mime-type>
-	
-	<mapping path="/*" decorator="/WEB-INF/decorator.jsp"/>
-	<mapping path="/meeting/*" exclue="true"/>
-	<mapping path="/auth/login" exclue="true"/>
-</sitemesh>

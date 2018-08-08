@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -45,7 +44,8 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter   {
 
         String header = request.getHeader(SecurityConstant.HEADER);
         if (SysUtils.isEmpty(header) || !header.startsWith(SecurityConstant.TOKEN_SPLIT)) {
-            chain.doFilter(request, response);
+        	ResponseUtil.out(response, ResponseUtil.resultMap(false , 403 , "您没有权限"));
+            //chain.doFilter(request, response);
             return;
         }
 //        try {

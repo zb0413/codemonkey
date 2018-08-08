@@ -3,14 +3,17 @@ package com.codemonkey.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 import com.codemonkey.handler.JWTAuthenticationFilter;
+import com.codemonkey.handler.JwtAccessDeniedHandler;
 import com.codemonkey.handler.JwtAuthenticationFailHandler;
 import com.codemonkey.handler.JwtAuthenticationSuccessHandler;
 //@EnableGlobalMethodSecurity(prePostEnabled=true)
 
 @Configuration
+@EnableWebSecurity(debug=true)
 public class JwtSecurityConfig extends WebSecurityAdapter {
 
     @Autowired
@@ -18,6 +21,9 @@ public class JwtSecurityConfig extends WebSecurityAdapter {
 
     @Autowired
     private JwtAuthenticationFailHandler failHandler;
+    
+    @Autowired
+    private JwtAccessDeniedHandler accessDeniedHandler;
     
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -38,5 +44,9 @@ public class JwtSecurityConfig extends WebSecurityAdapter {
         //失败
         .failureHandler(failHandler)
         .and();
+	}
+	@Override
+	protected void exceptionHandling(HttpSecurity http) throws Exception {
+		http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 	}
 }

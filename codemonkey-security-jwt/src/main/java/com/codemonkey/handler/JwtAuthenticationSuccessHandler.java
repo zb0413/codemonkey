@@ -37,7 +37,8 @@ public class JwtAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 
         //用户选择保存登录状态几天
         String username = ((UserDetails)authentication.getPrincipal()).getUsername();
-        List<GrantedAuthority> list = (List<GrantedAuthority>) ((UserDetails)authentication.getPrincipal()).getAuthorities();
+        @SuppressWarnings("unchecked")
+		List<GrantedAuthority> list = (List<GrantedAuthority>) ((UserDetails)authentication.getPrincipal()).getAuthorities();
         List<String> authorities = new ArrayList<>();
         for(GrantedAuthority g : list){
             authorities.add(g.getAuthority());

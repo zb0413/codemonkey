@@ -14,7 +14,6 @@ import com.codemonkey.repository.helper.QueryDslHelper;
 import com.codemonkey.support.CodeMonkeyRepository;
 import com.codemonkey.utils.ClassHelper;
 import com.codemonkey.utils.ExtConstant;
-import com.codemonkey.utils.OgnlUtils;
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Predicate;
@@ -40,7 +39,7 @@ public class JpaCodeMonkeyRepositoryImpl<T , ID extends Serializable> extends Ab
 		
 		SimpleExpression<?> path = helper.toStringPath(root, field);
 		
-		JSONObject queryAndSort = helper.toQueryJo(query , params);
+		JSONObject queryAndSort = helper.toQueryAndSort(query , params);
 		Predicate predicate = helper.createPredicate(getType(), queryAndSort.optJSONObject(ExtConstant.QUERY));
 		JPAQueryFactory queryFatory = new JPAQueryFactory(getEntityManager());
 		

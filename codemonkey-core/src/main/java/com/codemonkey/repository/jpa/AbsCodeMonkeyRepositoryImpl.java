@@ -1,6 +1,7 @@
 package com.codemonkey.repository.jpa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,9 @@ import javax.persistence.EntityManager;
 import org.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.QuerydslJpaRepository;
 
@@ -17,11 +21,8 @@ import com.codemonkey.support.CodeMonkeyRepository;
 import com.codemonkey.utils.ExtConstant;
 import com.codemonkey.utils.OgnlUtils;
 import com.codemonkey.utils.SysUtils;
-import com.querydsl.core.QueryFactory;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.jpa.JPQLQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 
 public abstract class AbsCodeMonkeyRepositoryImpl<T , ID extends Serializable> extends QuerydslJpaRepository<T, ID> implements CodeMonkeyRepository<T , ID>{
 
@@ -40,7 +41,7 @@ public abstract class AbsCodeMonkeyRepositoryImpl<T , ID extends Serializable> e
 	@Override
 	public List<T> findAllBy(String query, Object... params) {
 		QueryDslHelper helper = new QueryDslHelper();
-		JSONObject queryAndSort = helper.toQueryJo(query , params);
+		JSONObject queryAndSort = helper.toQueryAndSort(query , params);
 		return findByQueryInfo(queryAndSort);
 	}
 	
@@ -48,7 +49,7 @@ public abstract class AbsCodeMonkeyRepositoryImpl<T , ID extends Serializable> e
 	public T findBy(String query, Object... params) {
 		
 		QueryDslHelper helper = new QueryDslHelper();
-		JSONObject queryAndSort = helper.toQueryJo(query , params);
+		JSONObject queryAndSort = helper.toQueryAndSort(query , params);
 		
 		List<T> list = findByQueryInfo(queryAndSort);
 		if(SysUtils.isEmpty(list)){
@@ -64,7 +65,7 @@ public abstract class AbsCodeMonkeyRepositoryImpl<T , ID extends Serializable> e
 	@Override
 	public long countBy(String query, Object... params) {
 		QueryDslHelper helper = new QueryDslHelper();
-		JSONObject queryAndSort = helper.toQueryJo(query , params);
+		JSONObject queryAndSort = helper.toQueryAndSort(query , params);
 		
 		return countByQueryInfo(queryAndSort);
 	}
@@ -75,28 +76,42 @@ public abstract class AbsCodeMonkeyRepositoryImpl<T , ID extends Serializable> e
 		QueryDslHelper helper = new QueryDslHelper();
 		Predicate p = helper.createPredicate(getType() , queryAndSort.optJSONObject(ExtConstant.QUERY));
 		
-		//TODO orders
+		List<OrderSpecifier<?>> orders = helper.createOrders(getType() , queryAndSort.optJSONArray(ExtConstant.SORT));
 		
-//		List<OrderSpecifier<?>> orderSpecifiers = helper.createOrders(queryAndSort.optJSONArray(ExtConstant.SORT));
-//		List<Order> orders = new ArrayList<Order>();
-//		if(SysUtils.isNotEmpty(orderSpecifiers)){
-//			for(OrderSpecifier<?> ord : orderSpecifiers){
-//			}
-//		}
-//		Sort sort = Sort.by(orders);
-//		pageable.getSort().and(sort);
-		
+		Sort sort = pageable.getSort();
+		List<Order> pageOrders = toPageOrders(orders);
+		Sort otherSort = Sort.by(pageOrders);
+		sort.and(otherSort);
 		return findAll(p , pageable);
 	}
 	
+	private List<Order> toPageOrders(List<OrderSpecifier<?>> orders) {
+		List<Order> pageOrders = new ArrayList<Order>();
+		
+		if(SysUtils.isNotEmpty(orders)){
+			for(OrderSpecifier<?> o : orders){
+				if(o.getOrder().ASC.equals(o.getOrder())){
+					Order order = new Order(Direction.ASC , o.getTarget().toString());
+					pageOrders.add(order);
+				}else{
+					Order order = new Order(Direction.DESC , o.getTarget().toString());
+					pageOrders.add(order);
+				}
+			}
+		}
+		return pageOrders;
+	}
+
 	@Override
 	public List<T> findByQueryInfo(JSONObject queryAndSort) {
 		QueryDslHelper helper = new QueryDslHelper();
 		Predicate p = helper.createPredicate(getType() , queryAndSort.optJSONObject(ExtConstant.QUERY));
 		List<OrderSpecifier<?>> orders = helper.createOrders(getType()  , queryAndSort.optJSONArray(ExtConstant.SORT));
-		
-		if(orders != null){
-			return findAll(p , (OrderSpecifier<?>[]) orders.toArray());
+
+		if(SysUtils.isNotEmpty(orders)){
+			OrderSpecifier<?>[] orderArray = new OrderSpecifier<?>[orders.size()];
+			orderArray = orders.toArray(orderArray);
+			return findAll(p , orderArray);
 		}
 		
 		return findAll(p);

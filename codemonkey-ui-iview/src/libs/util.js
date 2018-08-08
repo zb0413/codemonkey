@@ -266,7 +266,7 @@ util.initRouter = function (vm) {
     let userId = JSON.parse(Cookies.get("userInfo")).id;
 
     // 加载菜单
-    axios.get("/xboot/permission/getMenuList/" + userId).then(res => {
+    axios.get("/xboot/user/getMenuList/" + userId).then(res => {
         let menuData = res.result;
         if (menuData === null || menuData === "" || menuData === undefined) {
             return;

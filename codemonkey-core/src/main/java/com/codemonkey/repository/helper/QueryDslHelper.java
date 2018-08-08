@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -49,6 +50,8 @@ public class QueryDslHelper {
 	public static final String ASC = "ASC";
 
 	public static final String DESC = "DESC";
+	
+	public static final String ORDER_BY = "-OrderBy-";
 	
 	private static final String _ASC = "_ASC";
 
@@ -202,15 +205,31 @@ public class QueryDslHelper {
 		throw new RuntimeException(f.getName() + " can not find solutions on " + path.getClass() );
 	}
 	
-	public JSONObject toQueryJo(String query, Object... params) {
+	public JSONObject toQueryAndSort(String query, Object... params) {
 		JSONObject queryAndSort = new JSONObject();
-		JSONObject queryJo = new JSONObject();
+		
+		String[] temp = query.split(QueryDslHelper.ORDER_BY);
+		String queryStr = temp[0];
+		String sortStr = "";
+		
+		if(temp.length > 1){
+			sortStr = temp[1];
+		}
+		
+		JSONObject queryJo = buildQueryJo(queryStr , params);
+		JSONArray sortJo = buildSortJo(sortStr);
 		queryAndSort.put(ExtConstant.QUERY, queryJo);
+		queryAndSort.put(ExtConstant.SORT, sortJo);
 		
 		if(SysUtils.isEmpty(query)){
 			return queryAndSort;
 		}
 		
+		return queryAndSort;
+	}
+	
+	private JSONObject buildQueryJo(String query , Object... params) {
+		JSONObject queryJo = new JSONObject();
 		String[] parts = query.split(AND_REG);
 		int currentIndex = 0;
 		for(int i = 0 ; i < parts.length ; i++){
@@ -221,9 +240,46 @@ public class QueryDslHelper {
 			}
 		}
 		checkParams(queryJo);
-		return queryAndSort;
+		return queryJo;
 	}
-	
+
+
+	private JSONArray buildSortJo(String sortStr) {
+		JSONArray sort = new JSONArray();
+		if(SysUtils.isEmpty(sortStr)){
+			return null;
+		}
+		
+		String[] parts = sortStr.split(AND);
+		for (int i = 0; i < parts.length; i++) {
+			String part = parts[i];
+	            
+	        if (part.endsWith(_DESC)) {
+                String prop = extractProp(part, _DESC);
+                JSONObject jo = new JSONObject();
+                jo.put(PROPERTY, prop);
+                jo.put(DIRECTION, "DESC");
+                sort.put(jo);
+                
+            } else if (part.endsWith(_ASC)) {
+        		String prop = extractProp(part, _ASC);
+    			JSONObject jo = new JSONObject();
+    			jo.put(PROPERTY, prop);
+    			jo.put(DIRECTION, "DESC");
+    			sort.put(jo);
+        	}
+        }
+		return sort;
+	}
+
+
+	private String extractProp(String part, String end) {
+		String prop = part.substring(0, part.length() - end.length());
+		prop = SysUtils.uncapitalize(prop);
+		return prop;
+	}
+
+
 	private void checkParams(JSONObject queryJo) {
 		Iterator<?> keys = queryJo.keys();
 		while(keys.hasNext()){

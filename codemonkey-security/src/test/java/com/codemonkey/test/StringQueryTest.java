@@ -206,5 +206,24 @@ public class StringQueryTest extends SecurityTest{
 		result = appUserJpaRepository.countBy("version_GT", 1);
 		assertEquals(new Long(1) , result);
 	}
+	
+	@Test
+	public void testOrderBy(){
+		AppUser appUser1 = new AppUser();
+		appUser1.setCode("appUser-1");
+		appUser1.setName("test");
+		appUser1.setVersion(3);
+		appUserJpaRepository.save(appUser1);
+		
+		AppUser appUser2 = new AppUser();
+		appUser2.setCode("appUser-2");
+		appUser2.setName("test");
+		appUser1.setVersion(1);
+		appUserJpaRepository.save(appUser2);
+		
+		List<AppUser> list = appUserJpaRepository.findAllBy("name_Like-OrderBy-code_DESC", "test");
+		assertEquals("appUser-2" , list.get(0).getCode());
+		
+	}
 
 }

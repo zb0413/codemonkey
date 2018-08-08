@@ -1,7 +1,5 @@
 package com.codemonkey.config;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Setter
 public class SecurityConfig {
 
-	private List<String> anonymousUrls;
+	private String[] anonymousUrls;
 	
 	private String loginUrl;
 	

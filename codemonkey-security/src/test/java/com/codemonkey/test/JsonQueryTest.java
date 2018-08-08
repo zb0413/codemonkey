@@ -72,24 +72,8 @@ public class JsonQueryTest extends SecurityTest {
 	
 	@Test
 	public void testComplexSearch(){
-		AppUser appUser = new AppUser();
-		appUser.setName("test");
-		appUser.setVersion(3);
-		appUserJpaRepository.save(appUser);
 		
-		AppRole appRole1 = new AppRole();
-		appRole1.setName("appRole1");
-		appRole1.setCode("appRole-1");
-		appUser.addAppRole(appRole1);
-		
-		AppRole appRole2 = new AppRole();
-		appRole2.setName("appRole2");
-		appRole2.setCode("code-2");
-		appUser.addAppRole(appRole2);
-		
-		appRoleJpaRepository.save(appRole1);
-		appRoleJpaRepository.save(appRole2);
-		appUserJpaRepository.save(appUser);
+		prepareData();
 		
 //		QAppUser quser = QAppUser.appUser;
 //		Predicate predicate = quser.roles.any().functionNodes.any().name.like("appRole1");
@@ -121,6 +105,43 @@ public class JsonQueryTest extends SecurityTest {
 		
 		assertEquals(1 , list.size());
 		
+		
+	}
+	
+	@Test
+	public void testOrderBy(){
+		
+		prepareData();
+		//test orders
+		JSONObject queryAndSort = new JSONObject();
+		JSONObject sort = new JSONObject();
+		sort.put("version", "desc");
+		queryAndSort.put(ExtConstant.SORT , sort);
+		
+		List<AppUser> list = appUserJpaRepository.findByQueryInfo(queryAndSort);
+		
+		assertEquals(new Integer(3) , list.get(0).getVersion());
+	}
+
+	private void prepareData() {
+		AppUser appUser = new AppUser();
+		appUser.setName("test");
+		appUser.setVersion(3);
+		appUserJpaRepository.save(appUser);
+		
+		AppRole appRole1 = new AppRole();
+		appRole1.setName("appRole1");
+		appRole1.setCode("appRole-1");
+		appUser.addAppRole(appRole1);
+		
+		AppRole appRole2 = new AppRole();
+		appRole2.setName("appRole2");
+		appRole2.setCode("code-2");
+		appUser.addAppRole(appRole2);
+		
+		appRoleJpaRepository.save(appRole1);
+		appRoleJpaRepository.save(appRole2);
+		appUserJpaRepository.save(appUser);
 	}
 	
 }

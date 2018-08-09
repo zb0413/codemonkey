@@ -90,7 +90,7 @@ public abstract class AbsCodeMonkeyRepositoryImpl<T , ID extends Serializable> e
 		
 		if(SysUtils.isNotEmpty(orders)){
 			for(OrderSpecifier<?> o : orders){
-				if(o.getOrder().ASC.equals(o.getOrder())){
+				if(com.querydsl.core.types.Order.ASC.equals(o.getOrder())){
 					Order order = new Order(Direction.ASC , o.getTarget().toString());
 					pageOrders.add(order);
 				}else{

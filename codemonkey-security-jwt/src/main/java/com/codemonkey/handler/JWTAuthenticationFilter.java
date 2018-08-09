@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -89,11 +88,11 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter   {
                     return new UsernamePasswordAuthenticationToken(principal, null, authorities);
                 }
             } catch (ExpiredJwtException e) {
-    			throw new AuthenticationServiceException("登录已失效，请重新登录" , e); 
-               //ResponseUtil.out(response, ResponseUtil.resultMap(false , 600 , "登录已失效，请重新登录"));
+    			//throw new AuthenticationServiceException("登录已失效，请重新登录" , e); 
+            	ResponseUtil.out(response, ResponseUtil.resultMap(false , 600 , "登录已失效，请重新登录"));
             } catch (Exception e){
-            	 //ResponseUtil.out(response, ResponseUtil.resultMap(false , 500 , "解析token错误"));
-            	throw new AuthenticationServiceException("其他未知错误" , e); 
+            	//throw new AuthenticationServiceException("其他未知错误" , e); 
+            	ResponseUtil.out(response, ResponseUtil.resultMap(false , 500 , "解析token错误"));
             }
         }
         return null;

@@ -3,6 +3,7 @@ package com.codemonkey.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
@@ -11,9 +12,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
@@ -21,10 +19,15 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.codemonkey.annotation.Label;
 import com.codemonkey.annotation.SkipBuild;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 @Table(indexes={
 	@Index(columnList = "code" , name="code_index"),

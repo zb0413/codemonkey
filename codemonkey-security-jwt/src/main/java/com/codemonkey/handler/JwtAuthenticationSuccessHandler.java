@@ -9,20 +9,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.codemonkey.config.SecurityConfig;
 import com.codemonkey.config.SecurityConstant;
 import com.codemonkey.utils.ResponseUtil;
 import com.google.gson.Gson;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 /**
  * 登录成功处理类
@@ -30,7 +28,7 @@ import com.google.gson.Gson;
 @Component
 public class JwtAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-	@Autowired private SecurityConfig securityConfig;
+//	@Autowired private SecurityConfig securityConfig;
 	
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

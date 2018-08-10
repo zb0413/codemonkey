@@ -52,7 +52,8 @@ public class Swagger2Config {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo()).select()
                 //扫描所有有注解的api，用这种方式更灵活
-                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+//                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
     }

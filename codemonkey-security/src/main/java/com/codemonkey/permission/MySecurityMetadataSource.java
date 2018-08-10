@@ -24,7 +24,7 @@ import com.codemonkey.utils.SysUtils;
 @Component
 public class MySecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
-    @Autowired private AppPermissionRepository appPermissionRepository;
+//    @Autowired private AppPermissionRepository appPermissionRepository;
 
     private Map<String, Collection<ConfigAttribute>> map = null;
 

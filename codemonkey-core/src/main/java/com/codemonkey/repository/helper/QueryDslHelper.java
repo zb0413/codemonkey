@@ -118,6 +118,9 @@ public class QueryDslHelper {
 		
 		EntityPath<?> root = resolver.createPath(type);
 		SimpleExpression<?> path = toStringPath(root, prop);
+		if(path == null) {
+			throw new SysError("can not find " + prop + " in " + type.getName());
+		}
 		Constant<?> c = ConstantImpl.create(value);
 		if(key.endsWith(ILIKE)){
 			c = ConstantImpl.create( '%'+ value.toString() + '%' );

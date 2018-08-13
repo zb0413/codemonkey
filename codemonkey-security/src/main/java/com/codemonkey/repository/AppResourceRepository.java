@@ -1,11 +1,11 @@
 package com.codemonkey.repository;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.codemonkey.domain.AppResource;
+import com.codemonkey.support.CodeMonkeyRepository;
 
 @RepositoryRestResource(path = "appResource")
-public interface AppResourceRepository extends PagingAndSortingRepository<AppResource, Long> {
+public interface AppResourceRepository extends CodeMonkeyRepository<AppResource, Long> {
 
 }

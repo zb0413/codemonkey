@@ -18,13 +18,11 @@ public class AppResource extends AbsEE{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Label("url")
-	private String resourceUrl;
+	@Label("urlPattern")
+	private String urlPattern;
 	
-	@Label("资源所对应的方法名")
+	@Label("提交方法")
 	private String methodName;
 	
-	@Label("资源所对应的包路径")
-	private String methodPath;
 
 }

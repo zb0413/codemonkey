@@ -29,10 +29,9 @@ public class InitUserServiceImpl implements InitDataBean{
 			AppUser admin = appUserService.findBy("username" , securityConfig.getAdminUsername());
 			if (admin == null) {
 				admin = new AppUser();
-			}else{
-				admin.setUsername(securityConfig.getAdminUsername());
-				admin.setRawPassword(securityConfig.getAdminPassword());
 			}
+			admin.setUsername(securityConfig.getAdminUsername());
+			admin.setRawPassword(securityConfig.getAdminPassword());
 			
 			boolean hasAdminRole = false;
 			Set<AppRole> roles = admin.getRoles();

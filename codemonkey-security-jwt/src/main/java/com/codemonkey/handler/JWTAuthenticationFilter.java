@@ -89,7 +89,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter   {
                 }
             } catch (ExpiredJwtException e) {
     			//throw new AuthenticationServiceException("登录已失效，请重新登录" , e); 
-            	ResponseUtil.out(response, ResponseUtil.resultMap(false , 600 , "登录已失效，请重新登录"));
+            	ResponseUtil.out(response, ResponseUtil.resultMap(false , 401 , "登录已失效，请重新登录"));
             } catch (Exception e){
             	//throw new AuthenticationServiceException("其他未知错误" , e); 
             	ResponseUtil.out(response, ResponseUtil.resultMap(false , 500 , "解析token错误"));

@@ -1,10 +1,8 @@
 package com.codemonkey.web.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codemonkey.config.SecurityConfig;
+import com.codemonkey.domain.AppRole;
 import com.codemonkey.domain.AppUser;
 import com.codemonkey.domain.FunctionNode;
 import com.codemonkey.domain.TreeEntity;
@@ -27,6 +26,9 @@ import com.codemonkey.tree.TreeUtils;
 import com.codemonkey.utils.ResultUtil;
 import com.codemonkey.utils.SysUtils;
 import com.codemonkey.vo.Result;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 
 @RestController
@@ -69,23 +71,29 @@ public class UserController {
         return new ResultUtil<Object>().setData(null);
     }
     
-    @RequestMapping(value = "/getMenuList/{userId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/getMenuList/{appUser}",method = RequestMethod.GET)
     @ApiOperation(value = "获取用户页面菜单数据")
-    public Result<JSONObject> getAllMenuList(@PathVariable String userId){
+    public Result<String> getAllMenuList(@PathVariable AppUser appUser){
 
-        //用户所有权限 已排序去重
-        List<FunctionNode> list = functionNodeService.findAll();
-        
-        List<TreeEntity<?>> tempList = new ArrayList<TreeEntity<?>>();
-        
-        if(SysUtils.isNotEmpty(list)){
-        	for(FunctionNode fn : list ){
-        		tempList.add(fn);
-        	}
-        }
+    	if(appUser == null) {
+    		return new ResultUtil<String>().setData(new JSONObject().toString());
+    	}
+    	
+    	List<TreeEntity<?>> tempList = new ArrayList<TreeEntity<?>>();
+    	
+    	Set<AppRole> roles = appUser.getRoles();
+    	
+    	if(SysUtils.isNotEmpty(roles)) {
+    		for(AppRole role : roles) {
+    			Set<FunctionNode> set = role.getFunctionNodes();
+    			if(SysUtils.isNotEmpty(set)) {
+    				tempList.addAll(set);
+    			}
+    		}
+    	}
         
         JSONObject jo = TreeUtils.buildTree(tempList);
 
-        return new ResultUtil<JSONObject>().setData(jo);
+        return new ResultUtil<String>().setData(jo.toString());
     }
 }

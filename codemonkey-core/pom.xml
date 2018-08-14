@@ -38,7 +38,7 @@
 	</build>
 	
 	<properties>
-		<dbunit.version>2.5.3</dbunit.version>
+		<dbunit.version>2.5.4</dbunit.version>
 		<json-rpc.version>1.0</json-rpc.version>
 	</properties>
 	

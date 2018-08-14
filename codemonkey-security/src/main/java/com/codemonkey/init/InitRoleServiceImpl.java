@@ -36,15 +36,15 @@ public class InitRoleServiceImpl implements InitDataBean{
 			AppRole adminRole = appRoleService.findBy("code" , securityConfig.getAdminRole());
 			if (adminRole == null) {
 				adminRole = new AppRole();
-			}else{
-				adminRole.setCode(securityConfig.getAdminRole());
-				adminRole.setName("系统管理员");
 			}
+			adminRole.setCode(securityConfig.getAdminRole());
+			adminRole.setName("系统管理员");
 			List<FunctionNode> functionNodes = functionNodeService.findAll();
-			List<AppResource> appResources = appResourceService.findAll();
-			addAllAppPermissions(adminRole , appResources);
 			addAllFunctionNodes(adminRole , functionNodes);
 			appRoleService.save(adminRole);
+			
+			List<AppResource> appResources = appResourceService.findAll();
+			addAllAppPermissions(adminRole , appResources);
 		}
 	}
 

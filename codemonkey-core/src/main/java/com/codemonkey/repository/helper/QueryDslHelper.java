@@ -203,8 +203,9 @@ public class QueryDslHelper {
 		if(f.getType().equals(SetPath.class) || f.getType().equals(ListPath.class)){
 			Object obj = ClassHelper.callMethod(subValue, "any");
 			return toStringPath((EntityPath<?>) obj,  subQuery);
+		}else {
+			return toStringPath((EntityPath<?>) subValue,  subQuery);
 		}
-		throw new RuntimeException(f.getName() + " can not find solutions on " + path.getClass() );
 	}
 	
 	public JSONObject toQueryAndSort(String query, Object... params) {
